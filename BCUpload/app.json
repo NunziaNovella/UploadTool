@@ -1,0 +1,25 @@
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "name": "BCUpload",
+  "publisher": "NunziaNovella",
+  "version": "1.0.0.0",
+  "brief": "Dynamic upsert API for Business Central SaaS",
+  "description": "Exposes a single POST API endpoint (OData v4) that accepts a JSON payload for dynamic upsert into arbitrary BC tables via RecordRef/FieldRef. Intended to pair with the UploadCli .NET orchestrator.",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "https://github.com/NunziaNovella/UploadTool",
+  "logo": "",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "24.0.0.0",
+  "idRanges": [
+    {
+      "from": 50100,
+      "to": 50199
+    }
+  ],
+  "target": "Cloud",
+  "runtime": "12.0"
+}
