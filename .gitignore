@@ -1,0 +1,34 @@
+# .NET build artifacts
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.nupkg
+*.snupkg
+publish/
+
+# .NET secrets
+appsettings.*.json
+secrets.json
+
+# AL / Business Central
+.alpackages/
+.app
+*.app
+.snapshots/
+rad.json
+
+# VS Code
+.vscode/settings.json
+.vscode/launch.json
+.vscode/*.code-workspace
+
+# Logs and error output
+*.log
+error-*.json
+error-*.csv
+
+# OS
+.DS_Store
+Thumbs.db
