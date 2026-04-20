@@ -1,0 +1,50 @@
+name: CI – .NET CLI
+
+on:
+  push:
+    branches: ["main", "copilot/**"]
+    paths:
+      - "UploadCli/**"
+      - ".github/workflows/ci-dotnet.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "UploadCli/**"
+      - ".github/workflows/ci-dotnet.yml"
+
+jobs:
+  build:
+    name: Restore, Build & Help-smoke-test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore dependencies (linux-x64)
+        run: dotnet restore UploadCli/UploadCli.csproj --runtime linux-x64
+
+      - name: Build (Release)
+        run: dotnet build UploadCli/UploadCli.csproj --no-restore --configuration Release
+
+      - name: Publish self-contained (linux-x64)
+        run: >
+          dotnet publish UploadCli/UploadCli.csproj
+          --no-restore
+          --configuration Release
+          --runtime linux-x64
+          --self-contained true
+          --output dist/
+
+      - name: Smoke-test – show help
+        run: ./dist/uploadcli --help
+
+      - name: Smoke-test – upload --help
+        run: ./dist/uploadcli upload --help

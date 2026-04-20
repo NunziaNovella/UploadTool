@@ -1,0 +1,26 @@
+[
+  {
+    "fields": [
+      { "id": 2,  "value": "C00010" },
+      { "id": 3,  "value": "Acme Corp" },
+      { "id": 21, "value": true },
+      { "id": 50, "value": 10000 }
+    ]
+  },
+  {
+    "fields": [
+      { "id": 2,  "value": "C00011" },
+      { "id": 3,  "value": "Globex Inc" },
+      { "id": 21, "value": true },
+      { "id": 50, "value": 5000 }
+    ]
+  },
+  {
+    "fields": [
+      { "id": 2,  "value": "C00012" },
+      { "id": 3,  "value": "Initech Ltd" },
+      { "id": 21, "value": false },
+      { "id": 50, "value": null }
+    ]
+  }
+]

@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>uploadcli</AssemblyName>
+    <RootNamespace>UploadCli</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <Description>Business Central ETL Upload Tool – streams CSV/JSON to BC SaaS via the BCUpload AL extension</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Command-line parsing -->
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+
+    <!-- OAuth2 / Entra ID (MSAL) -->
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.66.2" />
+
+    <!-- Resilience: retry on 429 / transient 5xx -->
+    <PackageReference Include="Polly" Version="8.4.2" />
+
+    <!-- CSV streaming -->
+    <PackageReference Include="CsvHelper" Version="33.0.1" />
+  </ItemGroup>
+
+</Project>
