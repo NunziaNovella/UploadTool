@@ -12,7 +12,7 @@ public static class UploadCommand
 {
     public static Command Build()
     {
-        var cmd = new Command("upload", "Upload a CSV or JSON file to a BC SaaS table.");
+        var cmd = new Command("upload", "Upload a CSV, tab-delimited, or JSON file to a BC SaaS table.");
 
         // ── BC SaaS connection ────────────────────────────────────────────────
         var tenantOpt = new Option<string>(
@@ -43,14 +43,14 @@ public static class UploadCommand
 
         // ── Input ─────────────────────────────────────────────────────────────
         var inputFileOpt = new Option<FileInfo>(
-            "--input", "Path to the input CSV or JSON file") { IsRequired = true };
+            "--input", "Path to the input CSV, tab-delimited (.txt), or JSON file") { IsRequired = true };
         inputFileOpt.ExistingOnly();
 
         var formatOpt = new Option<string>(
             "--format",
             () => "csv",
-            "Input format: 'csv' or 'json'");
-        formatOpt.FromAmong("csv", "json");
+            "Input format: 'csv', 'tab' (tab-delimited), or 'json'");
+        formatOpt.FromAmong("csv", "tab", "json");
 
         // ── Payload ───────────────────────────────────────────────────────────
         var tableIdOpt = new Option<int>(
@@ -135,6 +135,7 @@ public static class UploadCommand
         IAsyncEnumerable<IList<Models.BcField>> rowSource = opts.Format.ToLowerInvariant() switch
         {
             "json" => JsonStreamReader.ReadAsync(opts.InputFile, ct),
+            "tab"  => CsvStreamReader.ReadAsync(opts.InputFile, '\t'),
             _      => CsvStreamReader.ReadAsync(opts.InputFile),
         };
 

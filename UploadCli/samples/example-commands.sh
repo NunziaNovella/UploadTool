@@ -23,7 +23,23 @@ dotnet run --project UploadCli -- upload \
   --run-triggers  false \
   --error-log     errors-customers.json
 
-# ── Upload from JSON ──────────────────────────────────────────────────────────
+# ── Upload from tab-delimited file (Excel "Text (Tab delimited)" export) ──────
+# This is the best choice when descriptions contain commas.
+# In Excel: File → Save As → "Text (Tab delimited) (*.txt)"
+dotnet run --project UploadCli -- upload \
+  --tenant        "$TENANT" \
+  --environment   "$ENVIRONMENT" \
+  --company       "$COMPANY" \
+  --client-id     "$CLIENT_ID" \
+  --client-secret "$CLIENT_SECRET" \
+  --input         samples/sample-rows.txt \
+  --format        tab \
+  --table-id      18 \
+  --key-field-ids 2 \
+  --batch-size    500 \
+  --error-log     errors-customers.json
+
+
 dotnet run --project UploadCli -- upload \
   --tenant        "$TENANT" \
   --environment   "$ENVIRONMENT" \

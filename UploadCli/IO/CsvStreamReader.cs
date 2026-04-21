@@ -6,32 +6,38 @@ using UploadCli.Models;
 namespace UploadCli.IO;
 
 /// <summary>
-/// Streams rows from a CSV file as <see cref="IList{BcField}"/> sequences.
+/// Streams rows from a CSV or tab-delimited file as <see cref="IList{BcField}"/> sequences.
 ///
-/// CSV column header convention:
+/// Column header convention:
 ///   • Columns named <c>id_&lt;fieldId&gt;</c> (e.g. <c>id_2</c>, <c>id_3</c>)
 ///     are mapped directly to the BC field ID.
 ///   • Columns not matching that pattern are ignored with a warning.
 ///   • An empty cell value is treated as <c>null</c> (skip field).
 ///
-/// Example header row:
+/// Example header row (CSV):
 ///   id_2,id_3,id_4,id_50
+///
+/// Example header row (tab-delimited):
+///   id_2[TAB]id_3[TAB]id_4[TAB]id_50
 /// </summary>
 public static class CsvStreamReader
 {
     private const string ColumnPrefix = "id_";
 
     /// <summary>
-    /// Lazily yields one <see cref="IList{BcField}"/> per CSV row.
+    /// Lazily yields one <see cref="IList{BcField}"/> per row.
     /// The file is read line-by-line; the full file is never buffered in memory.
     /// </summary>
-    public static async IAsyncEnumerable<IList<BcField>> ReadAsync(string filePath)
+    /// <param name="filePath">Path to the input file.</param>
+    /// <param name="delimiter">Field delimiter character. Defaults to <c>','</c>; pass <c>'\t'</c> for tab-delimited files.</param>
+    public static async IAsyncEnumerable<IList<BcField>> ReadAsync(string filePath, char delimiter = ',')
     {
         var config = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             HasHeaderRecord = true,
             MissingFieldFound = null,
             BadDataFound = null,
+            Delimiter = delimiter.ToString(),
         };
 
         await using var fileStream = new FileStream(
