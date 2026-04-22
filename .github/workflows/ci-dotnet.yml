@@ -28,8 +28,8 @@ jobs:
         with:
           dotnet-version: "8.0.x"
 
-      - name: Restore dependencies
-        run: dotnet restore UploadCli/UploadCli.csproj
+      - name: Restore dependencies (linux-x64)
+        run: dotnet restore UploadCli/UploadCli.csproj --runtime linux-x64
 
       - name: Build (Release)
         run: dotnet build UploadCli/UploadCli.csproj --no-restore --configuration Release
